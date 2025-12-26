@@ -70,6 +70,7 @@
     <section class="box">
       <h2>🔥 Palpite do Dia</h2>
       <p>Mercado analisado com estratégia e disciplina.</p>
+      <div id="palpite" style="margin:12px 0;font-size:1.1rem;">Carregando palpite...</div>
       <div class="actions"><a class="button" href="https://milion811.github.io/palpite-certo/">Apostar Agora</a></div>
     </section>
 
@@ -83,5 +84,35 @@
   <footer>
     🔞 Proibido para menores de 18 anos — Aposte com responsabilidade
   </footer>
+  <script>
+    const API_CONFIG = {
+      baseUrl: 'https://COLE_SUA_API_AQUI',
+      token: ''
+    };
+
+    async function fetchPalpite() {
+      const el = document.getElementById('palpite');
+      if (!API_CONFIG.baseUrl || API_CONFIG.baseUrl.includes('COLE_SUA')) {
+        el.textContent = 'API não configurada. Atualize `API_CONFIG.baseUrl`.';
+        return;
+      }
+      try {
+        const endpoint = API_CONFIG.baseUrl.replace(/\/$/, '') + '/palpite';
+        const res = await fetch(endpoint, {
+          headers: API_CONFIG.token ? { 'Authorization': 'Bearer ' + API_CONFIG.token } : {}
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const title = data.title || data.palpite || JSON.stringify(data);
+        const desc = data.description || data.detail || '';
+        el.innerHTML = `<strong>${title}</strong>${desc ? '<p style="margin:6px 0 0 0">' + desc + '</p>' : ''}`;
+      } catch (err) {
+        el.textContent = 'Erro ao carregar palpite: ' + err.message;
+        console.error(err);
+      }
+    }
+
+    fetchPalpite();
+  </script>
 </body>
 </html>
