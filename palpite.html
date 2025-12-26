@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Palpite — Palpite Certo</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#0b3d2e;color:#fff;margin:0;padding:20px}
+    .card{max-width:720px;margin:32px auto;background:#124f3b;padding:20px;border-radius:10px}
+    a.button{display:inline-block;padding:8px 12px;background:#f5c542;color:#000;border-radius:8px;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Palpite do Dia</h1>
+    <div id="content">Carregando...</div>
+    <p style="margin-top:18px"><a class="button" href="/palpite-certo/">Voltar ao início</a></p>
+  </div>
+  <script>
+    async function load(){
+      const el=document.getElementById('content');
+      try{
+        const res=await fetch('palpite.json');
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        const data=await res.json();
+        const p = Array.isArray(data)?data[0]:data;
+        if(!p) return el.textContent='Nenhum palpite disponível.';
+        const title = p.title || p.texto || p.palpite || ('Palpite #' + (p.id||'0'));
+        const desc = p.description || p.detail || p.usuario || '';
+        el.innerHTML = `<h2 style="margin:6px 0">${title}</h2>${desc?'<p>'+desc+'</p>':''}`;
+      }catch(err){ el.textContent = 'Erro: '+err.message; console.error(err); }
+    }
+    load();
+  </script>
+</body>
+</html>
