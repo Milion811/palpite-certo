@@ -118,6 +118,8 @@
     }
 
     fetchPalpite();
+    // Recarrega o palpite periodicamente (a cada 5 segundos)
+    setInterval(fetchPalpite, 5000);
   </script>
 </body>
 </html>

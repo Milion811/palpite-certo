@@ -31,6 +31,8 @@
       }catch(err){ el.textContent = 'Erro: '+err.message; console.error(err); }
     }
     load();
+    // Atualiza o palpite a cada 5 segundos (atualização periódica)
+    setInterval(load, 5000);
   </script>
 </body>
 </html>

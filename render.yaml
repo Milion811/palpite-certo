@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: palpite-certo
+    env: node
+    repo: https://github.com/Milion811/palpite-certo
+    branch: main
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
