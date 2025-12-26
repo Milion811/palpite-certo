@@ -86,25 +86,30 @@
   </footer>
   <script>
     const API_CONFIG = {
-      baseUrl: 'https://COLE_SUA_API_AQUI',
+      // API pública usada pelo site (GitHub Pages serve JSON estático)
+      baseUrl: 'https://milion811.github.io/palpite-certo',
       token: ''
     };
 
     async function fetchPalpite() {
       const el = document.getElementById('palpite');
-      if (!API_CONFIG.baseUrl || API_CONFIG.baseUrl.includes('COLE_SUA')) {
+      if (!API_CONFIG.baseUrl) {
         el.textContent = 'API não configurada. Atualize `API_CONFIG.baseUrl`.';
         return;
       }
       try {
-        const endpoint = API_CONFIG.baseUrl.replace(/\/$/, '') + '/palpite';
+        const base = (API_CONFIG.baseUrl || '').replace(/\/$/, '');
+        // Usamos um JSON estático publicado junto com o site
+        const endpoint = base + '/palpite.json';
         const res = await fetch(endpoint, {
           headers: API_CONFIG.token ? { 'Authorization': 'Bearer ' + API_CONFIG.token } : {}
         });
         if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        const title = data.title || data.palpite || JSON.stringify(data);
-        const desc = data.description || data.detail || '';
+        let data = await res.json();
+        if (Array.isArray(data)) data = data[0];
+        if (!data) return el.textContent = 'Nenhum palpite disponível.';
+        const title = data.title || data.texto || data.palpite || ('Palpite #' + (data.id || '0'));
+        const desc = data.description || data.detail || (data.usuario ? 'por ' + data.usuario : '');
         el.innerHTML = `<strong>${title}</strong>${desc ? '<p style="margin:6px 0 0 0">' + desc + '</p>' : ''}`;
       } catch (err) {
         el.textContent = 'Erro ao carregar palpite: ' + err.message;
