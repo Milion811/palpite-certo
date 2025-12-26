@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palpite Certo</title>
+  <style>
+    :root{
+      --bg:#0b3d2e;
+      --card:#124f3b;
+      --accent:#f5c542;
+      --header:#062a20;
+      --text:#ffffff;
+      --btn-text:#000000;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      text-align:center;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding-bottom:40px;
+    }
+    header{
+      padding:30px 16px;
+      background:var(--header);
+    }
+    h1{margin:10px 0;color:var(--accent);font-size:1.8rem}
+    p.lead{margin:0;color:rgba(255,255,255,0.9)}
+    .container{max-width:880px;margin:20px auto;padding:0 16px}
+    .box{
+      margin:20px 0;
+      padding:20px;
+      background:var(--card);
+      border-radius:10px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.25);
+      text-align:left;
+    }
+    .box h2{margin:0 0 8px 0;font-size:1.25rem}
+    .box p{margin:0 0 12px 0}
+    .actions{text-align:right}
+    a.button{
+      display:inline-block;
+      padding:12px 18px;
+      background:var(--accent);
+      color:var(--btn-text);
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:700;
+    }
+    footer{
+      margin-top:30px;padding:15px;background:var(--header);font-size:13px;color:rgba(255,255,255,0.85)
+    }
+    @media (max-width:600px){
+      h1{font-size:1.4rem}
+      .actions{text-align:center}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🏆 Palpite Certo</h1>
+    <p class="lead">Palpites inteligentes todos os dias</p>
+  </header>
+
+  <main class="container">
+    <section class="box">
+      <h2>🔥 Palpite do Dia</h2>
+      <p>Mercado analisado com estratégia e disciplina.</p>
+      <div class="actions"><a class="button" href="#">Apostar Agora</a></div>
+    </section>
+
+    <section class="box">
+      <h2>💎 Palpite Certo VIP</h2>
+      <p>Grupo exclusivo com entradas selecionadas.</p>
+      <div class="actions"><a class="button" href="#">Entrar no VIP</a></div>
+    </section>
+  </main>
+
+  <footer>
+    🔞 Proibido para menores de 18 anos — Aposte com responsabilidade
+  </footer>
+</body>
+</html>
